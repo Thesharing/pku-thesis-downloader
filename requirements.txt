@@ -1,0 +1,4 @@
+requestium
+requests
+tqdm
+img2pdf
