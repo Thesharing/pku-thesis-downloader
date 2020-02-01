@@ -2,7 +2,8 @@
 .vscode
 __pycache__
 
-/temp
+/temp/
+/output/
 
 chromedriver.exe
 url.txt
