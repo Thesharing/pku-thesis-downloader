@@ -7,10 +7,14 @@ from time import sleep
 from tqdm import tqdm
 from selenium.common.exceptions import TimeoutException
 
+import platform
+
+DRIVER_DEFAULT = './chromedriver.exe' if platform.system() == 'Windows' else './chromedriver'
+
 
 class ThesisDownloader:
 
-    def __init__(self, driver_path: str = './chromedriver.exe',
+    def __init__(self, driver_path: str = DRIVER_DEFAULT,
                  output_path: str = './output',
                  temp_path: str = './temp',
                  interval: int = 2,
@@ -61,9 +65,9 @@ class ThesisDownloader:
             print('Generating PDF...')
             self._generate_pdf(title, total)
             self._clean()
-            print('Successfully download {}'.format(title))
+            print('Successfully download {}.'.format(title))
         except TimeoutException:
-            print('Thesis not found: {}'.format(url))
+            print('Thesis not found: {}.'.format(url))
 
     def crawl_list(self, url_list):
         """
@@ -101,7 +105,7 @@ class ThesisDownloader:
         bg = self.driver.find_element_by_id('loadingBg0')
         img = bg.find_element_by_tag_name('img')
         url = img.get_attribute('src')
-        url = url.replace('01.jpg', '{:0>2d}.jpg')
+        url = url.replace('00001.jpg', '{:0>5d}.jpg')
         return title, total, url
 
     def _download_img(self, url, total):

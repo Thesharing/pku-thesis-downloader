@@ -1,4 +1,5 @@
 requestium
+selenium
 requests
 tqdm
 img2pdf
